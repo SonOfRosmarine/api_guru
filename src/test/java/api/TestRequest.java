@@ -5,8 +5,8 @@ import models.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import static helpers.CustomApiListener.allureWithCustomTemplates;
+import static Specs.Specs.request;
+import static io.restassured.RestAssured.given;
 
 
 public class TestRequest {
@@ -16,7 +16,9 @@ public class TestRequest {
     @Tag("CheckApi")
     @DisplayName("Проверка наличия пользователя по email")
     void testGetEmail() {
-        Specs.request
+        given()
+
+                .spec(request)
                 .when()
                 .get("users?page=2")
                 .then()
@@ -31,9 +33,9 @@ public class TestRequest {
         User user = new User();
         user.setEmail("eve.holt@reqres.in");
         user.setPassword("cityslicka");
+        given()
 
-        Specs.request
-                .filter(allureWithCustomTemplates())
+                .spec(request)
                 .body(user)
                 .when()
                 .post("/login")
@@ -49,9 +51,9 @@ public class TestRequest {
         User user = new User();
         user.setEmail("test.holt@reqres.in");
         user.setPassword("pass");
+        given()
 
-        Specs.request
-                .filter(allureWithCustomTemplates())
+                .spec(request)
                 .body(user)
                 .when()
                 .post("/login")
@@ -67,9 +69,9 @@ public class TestRequest {
         User user = new User();
         user.setName("morpheus");
         user.setJob("Singer");
+        given()
 
-        Specs.request
-                .filter(allureWithCustomTemplates())
+                .spec(request)
                 .body(user)
                 .when()
                 .put("/users/2")
@@ -86,9 +88,9 @@ public class TestRequest {
         User user = new User();
         user.setEmail("eve.holt@reqres.in");
         user.setPassword("pistol");
+        given()
 
-        Specs.request
-                .filter(allureWithCustomTemplates())
+                .spec(request)
                 .body(user)
                 .when()
                 .post("/register")
@@ -103,9 +105,9 @@ public class TestRequest {
 
         User user = new User();
         user.setEmail("sydney@fife");
+        given()
 
-        Specs.request
-                .filter(allureWithCustomTemplates())
+                .spec(request)
                 .body(user)
                 .when()
                 .post("/register")
