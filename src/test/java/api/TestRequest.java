@@ -1,90 +1,103 @@
 package api;
 
+import Specs.Specs;
+import io.qameta.allure.restassured.AllureRestAssured;
+import models.User;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
 
 
 public class TestRequest {
 
 
     @Test
+    @DisplayName("Проверка наличия пользователя по email")
     void testGetEmail() {
-        given()
-                .log().body()
+        Specs.request
                 .when()
-                .get("https://reqres.in/api/users?page=2")
+                .get("users?page=2")
                 .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body("data.email", hasItem("michael.lawson@reqres.in"));
+                .spec(Specs.responseGetEmail);
     }
 
     @Test
-    void testPostMorpheus() {
-        String body = "{ \"name\": \"morpheus\", \"job\": \"leader\" }";
+    @DisplayName("Проверка пользователь авторезован")
+    void successLoginTest() {
 
-        given()
-                .log().body()
-                .body(body)
-                .contentType(JSON)
+        User user = new User();
+        user.setEmail("eve.holt@reqres.in");
+        user.setPassword("cityslicka");
+
+        Specs.request
+                .body(user)
                 .when()
-                .post("https://reqres.in/api/users")
+                .post("/login")
                 .then()
-                .log().status()
-                .log().body()
-                .statusCode(201)
-                .body("name", is("morpheus")).body("job", is("leader"));
+                .spec(Specs.responseLoginCorrect);
     }
 
     @Test
-    void testFormatJson() {
-        given()
-                .log().body()
-                .when()
-                .get("https://reqres.in/api/users?page=2")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemes/testApiData.json"));
+    @DisplayName("Проверка не валидные данные для авторизации")
+    void unSuccessLoginTest() {
 
+        User user = new User();
+        user.setEmail("test.holt@reqres.in");
+        user.setPassword("pass");
+
+        Specs.request
+                .body(user)
+                .when()
+                .post("/login")
+                .then()
+                .spec(Specs.response400);
     }
 
     @Test
-    void testPutMorpheus() {
+    @DisplayName("Проверка изменения данных пользователя ")
+    void changeJobTest() {
 
-        String body = "{ \"name\": \"morpheus\", \"job\": \"zion residenTank\" }";
+        User user = new User();
+        user.setName("morpheus");
+        user.setJob("Singer");
 
-        given()
-                .body(body)
-                .contentType(JSON)
-                .log().uri()
-                .log().body()
+        Specs.request
+                .body(user)
                 .when()
-                .put("https://reqres.in/api/users/2")
+                .put("/users/2")
                 .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .extract().path("job");
-
+                .spec(Specs.responseAll)
+                .extract().as(User.class);
     }
 
     @Test
-    void testDeleteCode() {
-        given()
-                .log().all()
+    @DisplayName("Проверка успешной регистрации пользователя")
+    void successRegistryTest() {
+
+        User user = new User();
+        user.setEmail("eve.holt@reqres.in");
+        user.setPassword("pistol");
+
+        Specs.request
+                .body(user)
                 .when()
-                .delete("https://reqres.in/api/users/2")
+                .post("/register")
                 .then()
-                .log().all()
-                .statusCode(204);
+                .spec(Specs.responseRegistryCorrect);
+    }
+
+    @Test
+    @DisplayName("Проверка не валидные данные для авторизации")
+    void unSuccessRegistryTest() {
+
+        User user = new User();
+        user.setEmail("sydney@fife");
+
+        Specs.request
+                .body(user)
+                .when()
+                .post("/register")
+                .then()
+                .spec(Specs.responseRegistry400);
     }
 }
 

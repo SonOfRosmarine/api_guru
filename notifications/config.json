@@ -1,0 +1,17 @@
+{
+  "base": {
+    "logo": "",
+    "project": "StopGame project",
+    "environment": "meSpace",
+    "comment": "Diplom",
+    "reportLink": "https://jenkins.autotests.cloud",
+    "language": "ru",
+    "allureFolder": "allure-report/",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "6044134059:AAH4hlG21LqBK7i0kxdBrwZrpSPALkvvXgU",
+    "chat": "-1001856168579",
+    "replyTo": ""
+  }
+}
