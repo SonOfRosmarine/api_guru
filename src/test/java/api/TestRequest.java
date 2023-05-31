@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static helpers.CustomApiListener.allureWithCustomTemplates;
+
 
 public class TestRequest {
 
@@ -31,6 +33,7 @@ public class TestRequest {
         user.setPassword("cityslicka");
 
         Specs.request
+                .filter(allureWithCustomTemplates())
                 .body(user)
                 .when()
                 .post("/login")
@@ -48,6 +51,7 @@ public class TestRequest {
         user.setPassword("pass");
 
         Specs.request
+                .filter(allureWithCustomTemplates())
                 .body(user)
                 .when()
                 .post("/login")
@@ -65,6 +69,7 @@ public class TestRequest {
         user.setJob("Singer");
 
         Specs.request
+                .filter(allureWithCustomTemplates())
                 .body(user)
                 .when()
                 .put("/users/2")
@@ -83,6 +88,7 @@ public class TestRequest {
         user.setPassword("pistol");
 
         Specs.request
+                .filter(allureWithCustomTemplates())
                 .body(user)
                 .when()
                 .post("/register")
@@ -92,13 +98,14 @@ public class TestRequest {
 
     @Test
     @Tag("CheckApi")
-    @DisplayName("Проверка не валидные данные для авторизации")
+    @DisplayName("Проверка не валидные данные для регистрации")
     void unSuccessRegistryTest() {
 
         User user = new User();
         user.setEmail("sydney@fife");
 
         Specs.request
+                .filter(allureWithCustomTemplates())
                 .body(user)
                 .when()
                 .post("/register")
