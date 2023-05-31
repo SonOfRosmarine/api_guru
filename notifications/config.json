@@ -1,9 +1,9 @@
 {
   "base": {
     "logo": "",
-    "project": "StopGame project",
+    "project": "API project",
     "environment": "meSpace",
-    "comment": "Diplom",
+    "comment": "diplomApi",
     "reportLink": "https://jenkins.autotests.cloud",
     "language": "ru",
     "allureFolder": "allure-report/",

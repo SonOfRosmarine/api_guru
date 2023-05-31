@@ -50,6 +50,12 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+task api_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("CheckApi")
+    }
+}
+
          sourceCompatibility = JavaVersion.VERSION_17
          targetCompatibility = JavaVersion.VERSION_17
 

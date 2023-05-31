@@ -1,9 +1,10 @@
 package api;
 
 import Specs.Specs;
-import io.qameta.allure.restassured.AllureRestAssured;
 import models.User;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 
@@ -11,6 +12,7 @@ public class TestRequest {
 
 
     @Test
+    @Tag("CheckApi")
     @DisplayName("Проверка наличия пользователя по email")
     void testGetEmail() {
         Specs.request
@@ -21,6 +23,7 @@ public class TestRequest {
     }
 
     @Test
+    @Tag("CheckApi")
     @DisplayName("Проверка пользователь авторезован")
     void successLoginTest() {
 
@@ -37,6 +40,7 @@ public class TestRequest {
     }
 
     @Test
+    @Tag("CheckApi")
     @DisplayName("Проверка не валидные данные для авторизации")
     void unSuccessLoginTest() {
 
@@ -53,6 +57,7 @@ public class TestRequest {
     }
 
     @Test
+    @Tag("CheckApi")
     @DisplayName("Проверка изменения данных пользователя ")
     void changeJobTest() {
 
@@ -70,6 +75,7 @@ public class TestRequest {
     }
 
     @Test
+    @Tag("CheckApi")
     @DisplayName("Проверка успешной регистрации пользователя")
     void successRegistryTest() {
 
@@ -86,6 +92,7 @@ public class TestRequest {
     }
 
     @Test
+    @Tag("CheckApi")
     @DisplayName("Проверка не валидные данные для авторизации")
     void unSuccessRegistryTest() {
 
