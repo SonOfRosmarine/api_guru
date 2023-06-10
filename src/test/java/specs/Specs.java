@@ -1,9 +1,10 @@
-package Specs;
+package specs;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+
 import static helpers.CustomApiListener.allureWithCustomTemplates;
 import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.BODY;
@@ -13,22 +14,18 @@ import static org.hamcrest.Matchers.*;
 
 public class Specs {
 
-public static RequestSpecification request = with()
-        .filter(allureWithCustomTemplates())
-        .baseUri("https://reqres.in")
-        .basePath("api/")
-        .log().all()
-        .contentType(ContentType.JSON);
-
-
-public static ResponseSpecification responseGetEmail = new ResponseSpecBuilder()
-        .expectStatusCode(200)
-        .expectBody("data.email", hasItem("michael.lawson@reqres.in"))
-        .log(STATUS)
-        .log(BODY)
-        .build();
-
-
+    public static RequestSpecification request = with()
+            .filter(allureWithCustomTemplates())
+            .baseUri("https://reqres.in")
+            .basePath("tests/")
+            .log().all()
+            .contentType(ContentType.JSON);
+    public static ResponseSpecification responseGetEmail = new ResponseSpecBuilder()
+            .expectStatusCode(200)
+            .expectBody("data.email", hasItem("michael.lawson@reqres.in"))
+            .log(STATUS)
+            .log(BODY)
+            .build();
     public static ResponseSpecification responseAll = new ResponseSpecBuilder()
             .expectStatusCode(200)
             .log(STATUS)
