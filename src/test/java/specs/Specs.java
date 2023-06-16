@@ -17,7 +17,6 @@ public class Specs {
     public static RequestSpecification request = with()
             .filter(allureWithCustomTemplates())
             .baseUri("https://reqres.in")
-            .basePath("tests/")
             .log().all()
             .contentType(ContentType.JSON);
     public static ResponseSpecification responseGetEmail = new ResponseSpecBuilder()

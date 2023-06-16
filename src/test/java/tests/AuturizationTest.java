@@ -20,7 +20,6 @@ public class AuturizationTest {
                 .spec(request)
                 .body(user)
                 .when()
-                .post("/login")
                 .then()
                 .spec(Specs.responseLoginCorrect);
     }
@@ -35,7 +34,6 @@ public class AuturizationTest {
                 .spec(request)
                 .body(user)
                 .when()
-                .post("/login")
                 .then()
                 .spec(Specs.response400);
     }

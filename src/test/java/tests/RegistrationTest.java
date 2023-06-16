@@ -20,7 +20,6 @@ public class RegistrationTest {
                 .spec(request)
                 .body(user)
                 .when()
-                .post("/register")
                 .then()
                 .spec(Specs.responseRegistryCorrect);
     }
@@ -34,7 +33,6 @@ public class RegistrationTest {
                 .spec(request)
                 .body(user)
                 .when()
-                .post("/register")
                 .then()
                 .spec(Specs.responseRegistry400);
     }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import specs.Specs;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasItem;
 import static specs.Specs.request;
 
 
@@ -20,10 +21,10 @@ public class ChengDataUserTest {
                 .spec(request)
                 .body(user)
                 .when()
-                .put("/users/2")
                 .then()
                 .spec(Specs.responseAll)
-                .extract().as(User.class);
+                .body("name", hasItem("morpheus"))
+                .body("job", hasItem("Singer"));
     }
 }
 
