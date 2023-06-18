@@ -15,8 +15,9 @@ public class ClentEmailTest {
     void testGetEmail() {
         given()
                 .spec(request)
-                .when()
                 .queryParam("page",2)
+                .when()
+                .get("/api/users")
                 .then()
                 .spec(Specs.responseGetEmail)
                 .body("data.email", hasItem("michael.lawson@reqres.in"));

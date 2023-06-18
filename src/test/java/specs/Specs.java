@@ -25,8 +25,10 @@ public class Specs {
             .log(STATUS)
             .log(BODY)
             .build();
-    public static ResponseSpecification responseAll = new ResponseSpecBuilder()
+    public static ResponseSpecification responseChangeData = new ResponseSpecBuilder()
             .expectStatusCode(200)
+            .expectBody("name", is("morpheus"))
+            .expectBody("job", is("Singer"))
             .log(STATUS)
             .log(BODY)
             .build();
